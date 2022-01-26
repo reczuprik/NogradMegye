@@ -140,27 +140,42 @@
             var myFunction = function () {
                 let idOfElement = this.getAttribute("id");
                 let size = this.getAttribute("data-large");
-                let origin = getTransformOrigin(idOfElement);
 
-                if (size === "true") {
-                    // console.log(size);
-                    this.setAttribute("data-large", false);
-                    this.style.transition = "all 0.5s ease-in-out";
-                    this.style.transform = "scale(1.0)";
-                    this.style.transformOrigin = origin;
-                    this.style.zIndex = 0;
+                var cards = document.querySelectorAll("[data-large]");
+                if (document.querySelectorAll("[data-large='true']").length === 0) {
+                    scaleUp(this, "0");
+                    console.log("no active");
                 } else {
-                    // console.log("else" + size);
-                    this.setAttribute("data-large", true);
-                    this.style.transition = "all 0.5s ease-in-out";
-                    this.style.transformOrigin = origin;
-                    this.style.transform = "scale(1.6)";
-                    this.style.zIndex = 1000;
+                    for (var i = 0; i < cards.length; i++) {
+                        if (cards[i].getAttribute("data-large") === "true") {
+                            console.log("it was active but hide");
+                            scaleDown(cards[i]);
+                        } else if (cards[i].getAttribute("id") === idOfElement) {
+                            console.log("it needs to be activated");
+                            scaleUp(cards[i]);
+                        }
+                    }
                 }
             };
 
             for (var i = 0; i < elements.length; i++) {
                 elements[i].addEventListener("click", myFunction, false);
+            }
+
+            function scaleDown(e) {
+                e.setAttribute("data-large", false);
+                e.style.transition = "all 0.5s ease-out";
+                e.style.transform = "scale(1.0)";
+                e.style.transformOrigin = getTransformOrigin(e.getAttribute("id"));
+                e.style.zIndex = 0;
+            }
+            function scaleUp(e, delay = "500ms") {
+                e.setAttribute("data-large", true);
+                e.style.transition = "all 0.5s ease-out";
+                e.style.transform = "scale(1.6)";
+                e.style.transitionDelay = delay;
+                e.style.transformOrigin = getTransformOrigin(e.getAttribute("id"));
+                e.style.zIndex = 10;
             }
         </script>
     </body>

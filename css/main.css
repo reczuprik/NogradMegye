@@ -57,10 +57,12 @@ svg {
 
 .location-container {
   position: absolute;
+  margin-inline: 5em;
   bottom: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 5px;
 }
 
 .location-container .info {

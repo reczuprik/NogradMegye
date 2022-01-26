@@ -48,8 +48,10 @@ svg {
 
 .location-container {
     position: absolute;
+    margin-inline: 5em;
     bottom: 0;
     display: flex;
+    gap: 5px;
     .info {
         background: white;
         padding: 3em;
